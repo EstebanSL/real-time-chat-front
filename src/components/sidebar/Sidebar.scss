@@ -7,12 +7,13 @@
   gap: 1rem;
   width: 300px;
   min-height: 100vh;
-  background-color: #0A2647;
+  background-color: #ffffff;
   padding: 1rem .5rem;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
-  color: #fff;
-  transition: all ease-out .5s;
+  transition: all ease-out .3s;
+  z-index: 100;
+  filter: drop-shadow(4px 0px 4px #00000072);
 
   &-profile {
     display: flex;
@@ -59,11 +60,11 @@
   margin: 0;
   margin-left: auto;
   margin-top: auto;
-  transition: all ease-out .5s;
+  transition: all ease-out .3s;
 
   &-close {
     width: 50px;
-    transition: all ease-out .5s;
+    transition: all ease-out .3s;
   }
 }
 
@@ -71,8 +72,8 @@
   left: -234px;
 }
 
-
 .Item {
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -83,12 +84,12 @@
   border: 2px solid #2C74B3;
   border-radius: 10px;
   cursor: pointer;
-  transition: all ease-out .5s;
+  transition: all ease-out .3s;
 
   &-close {
     width: 50px;
     margin-left: calc(100% - 50px);
-    transition: all ease-out .5s;
+    transition: all ease-out .3s;
   }
 
   &:hover {

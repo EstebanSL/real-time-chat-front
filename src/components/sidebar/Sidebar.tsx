@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
 import { logout } from '../../utilities';
 import './Sidebar.scss';
+import { useContext } from 'react';
+import { SidebarContext } from '../../context';
+import { useNavigate } from 'react-router-dom';
+import { PrivateRoutes } from '../../models';
 
 const options = [
   {
     text: 'Dashboard',
     iconClass: 'fa-solid fa-cubes',
-    linkTo: '/'
+    linkTo: PrivateRoutes.DASHBOARD
   },
   {
     text: 'contacts',
     iconClass: 'fa-solid fa-address-book',
-    linkTo: '/contacts'
+    linkTo: PrivateRoutes.CONTACTS
   },
   {
     text: 'Rooms',
     iconClass: 'fa-solid fa-user-group',
-    linkTo: '/rooms'
+    linkTo: PrivateRoutes.ROOMS
   },
 ];
 
 
 export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+
+  const { sidebarState, toggleSidebar } = useContext(SidebarContext)
+
+  const navigate = useNavigate()
+
+  const changeSidebarState = () => {
+    toggleSidebar(!sidebarState)
+    toggleSidebar()
+  }
 
   return (
-    <div className={isOpen ? `sidebar open` : `sidebar`}>
+    <div className={sidebarState ? `sidebar open` : `sidebar`}>
       <div className="sidebar-profile">
         <img
           className="profile-logo"
@@ -33,25 +45,25 @@ export const Sidebar = () => {
           alt="profile-icon"
         />
         <p className="profile-name">Profile name</p>
-        <div className="open-close" onClick={() => setIsOpen(!isOpen)}>
+        <div className="open-close" onClick={() => changeSidebarState()}>
           <i
             className={
-              isOpen ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left'
+              sidebarState ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left'
             }
           ></i>
         </div>
       </div>
       <div className="sidebar-items">
         {options.map((option, index) => (
-          <Item option={option} key={index} isOpen={isOpen} operation={ () => console.log('navigate to' + option.linkTo)} />
+          <Item option={option} key={index} isOpen={sidebarState} operation={ () => navigate(option.linkTo)} />
         ))}
       </div>
       <hr  className={
-              !isOpen ? 'separator' : 'separator separator-close'
+              !sidebarState ? 'separator' : 'separator separator-close'
             }/>
       <div className="sidebar-options">
-        <Item option={{ text: 'Light Theme', iconClass: 'fa-solid fa-moon' }} isOpen={isOpen}  />
-        <Item option={{ text: 'Logout', iconClass: 'fa-solid fa-circle-xmark'}} isOpen={isOpen} operation={ logout } />
+        <Item option={{ text: 'Light Theme', iconClass: 'fa-solid fa-moon' }} isOpen={sidebarState}  />
+        <Item option={{ text: 'Logout', iconClass: 'fa-solid fa-circle-xmark'}} isOpen={sidebarState} operation={ logout } />
       </div>
     </div>
   );

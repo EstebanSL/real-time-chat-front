@@ -1,0 +1,15 @@
+.layout-open {
+  width: calc(100% - 300px);
+  height: 100vh;
+  background-color: #fff;
+  margin-left: 300px;
+  transition: all ease-out .3s;
+}
+
+.layout-close {
+  width: calc(100% - 66px);
+  height: 100vh;
+  background-color: #fff;
+  margin-left: 66px;
+  transition: all ease-out .3s;
+}
