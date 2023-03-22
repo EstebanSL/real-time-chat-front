@@ -1,26 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import './Register.scss'
-import { useContext } from 'react';
+import './Register.scss';
 import { RegisterUser } from '../../services/register.services';
 import { RegisterData, SignupSchema } from '../../models';
-import { useFetchAndLoad } from '../../../../hooks';
+import useFetchAndLoad from '../../../../hooks/useFetch';
+import { useState } from 'react';
 
-
-export const Register = () => {
+const Register = () => {
+  const [isPasswordVisible, setisPasswordVisible] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const { callEndpoint } = useFetchAndLoad()
+  const { callEndpoint, loading } = useFetchAndLoad();
 
   const onSubmit = async (data: RegisterData) => {
-    const result = await callEndpoint(RegisterUser(data))
-    console.log(result)
+    callEndpoint(RegisterUser(data));
   };
 
   return (
-    <div className='register-container'>
-      <img className='register-container__icon' src="src/assets/app-logo.jpg" alt="app-icon" />
+    <div className="register-container">
+      <img
+        className="register-container__icon"
+        src="src/assets/app-logo.jpg"
+        alt="app-icon"
+      />
       <Formik
         initialValues={{
           username: '',
@@ -34,7 +36,7 @@ export const Register = () => {
         }}
       >
         {({ errors, touched }) => (
-          <Form className="login-container__form">
+          <Form className="register-container__form">
             <div className="form__item">
               <Field
                 className="form__input"
@@ -63,10 +65,18 @@ export const Register = () => {
               <Field
                 className="form__input"
                 name="password"
-                type="password"
+                type={isPasswordVisible ? 'text' : 'password'}
                 autoComplete="off"
                 placeholder="Password"
               />
+              <i
+                className={`password-icon ${
+                  isPasswordVisible
+                    ? 'fa-solid fa-eye'
+                    : 'fa-solid fa-eye-slash'
+                }`}
+                onClick={() => setisPasswordVisible(!isPasswordVisible)}
+              ></i>
               {errors.password && touched.password && (
                 <p className="form__error">{errors.password}</p>
               )}
@@ -78,7 +88,14 @@ export const Register = () => {
         )}
       </Formik>
 
-      <p className='register-container__link' onClick={() => navigate('/login')}>Already have an account? Log In</p>
+      <p
+        className="register-container__link"
+        onClick={() => navigate('/login')}
+      >
+        Already have an account? Log In
+      </p>
     </div>
   );
 };
+
+export default Register;

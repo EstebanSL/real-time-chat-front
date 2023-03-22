@@ -12,7 +12,7 @@ const loginSchema = Yup.object().shape({
     .required('Required'),
 });
 
-export const Login = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
@@ -82,3 +82,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login

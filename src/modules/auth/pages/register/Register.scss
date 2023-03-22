@@ -7,7 +7,7 @@
   min-height: 100vh;
   padding: 1rem;
   justify-content: center;
-  background-color: #ECF2FF;
+  background-color: var(--background);
 
   &__icon {
     width: 100px;
@@ -25,6 +25,19 @@
 
     .form__item {
       width: 100%;
+      position: relative;
+
+      .password-icon {
+        position: absolute;
+        right: 1rem;
+        top: 1.1rem;
+        cursor: pointer;
+        color: var(--accent);
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
     }
 
     .form__input, .form__button {
@@ -33,21 +46,27 @@
       padding: .8rem 1rem;
       border-radius: 5px;
       outline: none;
+      color: var(--text-primary);
     }
 
     .form__input {
       font-size: 1rem;
       font-family: 'Montserrat', sans-serif;
       background-color: transparent;
-      border: 2px solid #18122B;
+      border: 2px solid var(--accent);
+      padding-right: 3rem;
 
       &:focus {
-        border: 2px solid #0e56a6;
+        border: 2px solid var(--accent);
+      }
+
+      &::placeholder {
+        color: #ffffff88;
       }
     }
 
     .form__error {
-      color: #dc3445;
+      color: var(--error);
       font-size: .9rem;
       margin: .5rem 0 0 0;
       font-weight: 600;
@@ -58,12 +77,12 @@
       border: none;
       cursor: pointer;
       font-family: 'Montserrat', sans-serif;
-      background-color: #18122B;
+      background-color: var(--accent);
       color: #fff;
       font-size: 1rem;
 
       &:hover {
-         background-color: #393053;
+         background-color: var(--accent);
       }
     }
   }
@@ -72,12 +91,12 @@
     margin-top: 2rem;
     font-size: 1rem;
     text-decoration: underline;
-    color: #18122B;
+    color: var(--accent-active);
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
 
     &:hover {
-      color: #0e56a6;
+      color: var(--accent);
     }
   }
 }

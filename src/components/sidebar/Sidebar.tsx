@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { SidebarContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoutes } from '../../models';
+import logo from '../../assets/app-logo.jpg'; 
 
 const options = [
   {
@@ -41,7 +42,7 @@ export const Sidebar = () => {
       <div className="sidebar-profile">
         <img
           className="profile-logo"
-          src="./src/assets/app-logo.jpg"
+          src={logo}
           alt="profile-icon"
         />
         <p className="profile-name">Profile name</p>

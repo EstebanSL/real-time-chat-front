@@ -1,9 +1,10 @@
 import './UserHeader.scss'
+import logo from '../../../../assets/app-logo.jpg'; 
 
 const UserHeader = () => {
   return (
     <div className='userHeader'>
-      <img src="src\assets\app-logo.jpg" alt="user icon" className='userHeader-icon' />
+      <img src={logo} alt="user icon" className='userHeader-icon' />
       <p className='userHeader-name'>User name</p>
     </div>
   )
