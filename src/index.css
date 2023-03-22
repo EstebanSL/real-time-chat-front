@@ -1,5 +1,20 @@
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --background: #0f1319;
+  --text-primary: #fefcfb;
+  --accent: #5a96f9;
+  --accent-active: #1491b4;
+  --error: #be3636;
+}
+[data-theme='dark'] {
+  --background: black;
+  --text-primary: #0a1128;
+  --accent: #5a96f9;
+  --error: #be3636;
 }

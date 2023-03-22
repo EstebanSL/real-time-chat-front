@@ -1,0 +1,11 @@
+export const PublicRoutes = {
+  LOGIN: 'login',
+  REGISTER: 'register',
+}
+
+export const PrivateRoutes = {
+  DASHBOARD: 'dashboard',
+  CHAT: 'chat',
+  CONTACTS: 'contacts',
+  ROOMS: 'rooms'
+}

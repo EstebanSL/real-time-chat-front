@@ -2,7 +2,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { AppWrapper, Sidebar } from '../components';
 
 export const AuthGuard = () => {
-  const userData = true;
+  const userData = false;
 
   return userData ? (
     <>
