@@ -6,15 +6,18 @@ html {
 }
 
 :root {
-  --background: #0f1319;
-  --text-primary: #fefcfb;
-  --accent: #5a96f9;
-  --accent-active: #1491b4;
-  --error: #be3636;
+  --background: #fff;
+  --text-primary: #0a1128;
+  --accent: #0e56a6;
+  --accent-active: #0e1ba6;
+  --error: #fc033d;
+  --page-background: rgba(90, 182, 249, 0.5);
 }
 [data-theme='dark'] {
-  --background: black;
-  --text-primary: #0a1128;
+  --background: #0a1128;
+  --text-primary: #fff;
   --accent: #5a96f9;
-  --error: #be3636;
+  --accent-active: #0e5da6;
+  --error: #ff6e90;
+  --page-background: #0f1319;
 }

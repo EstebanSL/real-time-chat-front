@@ -1,8 +1,13 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { PrivateRoutes } from '../models';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export const PublicGuard = () => {
-  const userData = false;
 
-  return userData ? <Navigate replace to={PrivateRoutes.DASHBOARD} /> : <Outlet />;
+  const { user } = useContext(AuthContext);
+
+  console.log('validated')
+
+  return user ? <Navigate replace to={PrivateRoutes.DASHBOARD} /> : <Outlet />;
 };

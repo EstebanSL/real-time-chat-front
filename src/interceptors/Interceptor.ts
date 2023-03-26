@@ -23,9 +23,8 @@ authFetch.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log('response error')
     if(error.name !== 'CanceledError')
-      showErrorToast(error.response)
+      showErrorToast(error.response.data.message || error.message)
     return Promise.reject(error);
   }
 );

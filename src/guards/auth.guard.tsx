@@ -1,10 +1,13 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { AppWrapper, Sidebar } from '../components';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export const AuthGuard = () => {
-  const userData = false;
+  
+  const { user } = useContext(AuthContext);
 
-  return userData ? (
+  return user ? (
     <>
       <AppWrapper />
     </>

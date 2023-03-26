@@ -13,8 +13,10 @@ import { AppWrapper } from './components';
 import { SidebarContext } from './context';
 import { PrivateRoutes, PublicRoutes } from './models';
 import { AuthGuard, PublicGuard } from './guards';
-
-export const AuthContext = createContext<any>(null);
+import Loader from './components/loader/Loader';
+import AuthContextProvider, { AuthContext } from './context/AuthContext';
+import ThemeContextProvider, { ThemeContext } from './context/ThemeContext';
+import SidebarContextProvider from './context/SidebarContext';
 
 const Login = lazy(() => import('./modules/auth/pages/login/Login'));
 const Register = lazy(() => import('./modules/auth/pages/register/Register'));
@@ -23,48 +25,42 @@ const Contacts = lazy(() => import('./modules/app/pages/contacts/Contacts'));
 const Rooms = lazy(() => import('./modules/app/pages/rooms/Rooms'));
 const Chat = lazy(() => import('./modules/app/pages/chat/Chat'));
 
-const ThemeContext = createContext<any>({value: 'dark', setValue: () => {}});
-
 function App() {
-  const [sidebarState, setsidebarState] = useState(false);
-  const [theme, setTheme] = useState<string>('light');
 
-  const provided = useMemo(
-    () => ({
-      value: theme,
-      setValue: () => setTheme(theme === 'light' ? 'dark' : 'dark'),
-    }),
-    [theme]
-  );
-
-  const toggleSidebar = () => {
-    setsidebarState(!sidebarState);
-  };
+  const { theme } = useContext(ThemeContext)
 
   return (
-    <ThemeContext.Provider value={{provided}}>
+    <ThemeContextProvider>
       <div className="App" data-theme={theme}>
-        <Suspense fallback={<>Loading</>}>
-          <SidebarContext.Provider value={{ sidebarState, toggleSidebar }}>
-            <Routes>
-              <Route element={<PublicGuard />}>
-                <Route path={PublicRoutes.LOGIN} element={<Login />} />
-                <Route path={PublicRoutes.REGISTER} element={<Register />} />
-                <Route path="*" element={<Navigate to="/login" />} />
-              </Route>
+        <AuthContextProvider>
+        <Suspense fallback={<Loader />}>
+            <SidebarContextProvider>
+              <Routes>
+                <Route element={<PublicGuard />}>
+                  <Route path={PublicRoutes.LOGIN} element={<Login />} />
+                  <Route path={PublicRoutes.REGISTER} element={<Register />} />
+                  <Route path="*" element={<Navigate to="/login" />} />
+                </Route>
 
-              <Route element={<AuthGuard />}>
-                <Route path={PrivateRoutes.DASHBOARD} element={<Dashboard />} />
-                <Route path={`${PrivateRoutes.CHAT}/:id`} element={<Chat />} />
-                <Route path={PrivateRoutes.CONTACTS} element={<Contacts />} />
-                <Route path={PrivateRoutes.ROOMS} element={<Rooms />} />
-                <Route path="*" element={<Navigate to="/dashboard" />} />
-              </Route>
-            </Routes>
-          </SidebarContext.Provider>
+                <Route element={<AuthGuard />}>
+                  <Route
+                    path={PrivateRoutes.DASHBOARD}
+                    element={<Dashboard />}
+                  />
+                  <Route
+                    path={`${PrivateRoutes.CHAT}/:id`}
+                    element={<Chat />}
+                  />
+                  <Route path={PrivateRoutes.CONTACTS} element={<Contacts />} />
+                  <Route path={PrivateRoutes.ROOMS} element={<Rooms />} />
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </Route>
+              </Routes>
+            </SidebarContextProvider>
         </Suspense>
+          </AuthContextProvider>
       </div>
-    </ThemeContext.Provider>
+    </ThemeContextProvider>
   );
 }
 

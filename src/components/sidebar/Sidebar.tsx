@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { logout } from '../../utilities';
 import './Sidebar.scss';
 import { useContext } from 'react';
 import { SidebarContext } from '../../context';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoutes } from '../../models';
 import logo from '../../assets/app-logo.jpg'; 
+import { ThemeContext } from '../../context/ThemeContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const options = [
   {
@@ -30,7 +31,12 @@ export const Sidebar = () => {
 
   const { sidebarState, toggleSidebar } = useContext(SidebarContext)
 
+  const { toggleTheme } = useContext(ThemeContext)
+
+  const { logout } = useContext(AuthContext)
+
   const navigate = useNavigate()
+
 
   const changeSidebarState = () => {
     toggleSidebar(!sidebarState)
@@ -63,7 +69,7 @@ export const Sidebar = () => {
               !sidebarState ? 'separator' : 'separator separator-close'
             }/>
       <div className="sidebar-options">
-        <Item option={{ text: 'Light Theme', iconClass: 'fa-solid fa-moon' }} isOpen={sidebarState}  />
+        <Item option={{ text: 'Light Theme', iconClass: 'fa-solid fa-moon' }} isOpen={sidebarState} operation={() => toggleTheme()} />
         <Item option={{ text: 'Logout', iconClass: 'fa-solid fa-circle-xmark'}} isOpen={sidebarState} operation={ logout } />
       </div>
     </div>
@@ -73,7 +79,7 @@ export const Sidebar = () => {
 
 const Item = ({ option, isOpen, operation }: any) => {
   return (
-    <div className={!isOpen ? 'Item' : 'Item Item-close'}  onClick={ operation } >
+    <div className={!isOpen ? 'Item' : 'Item Item-close'} onClick={ operation }>
       <div className={!isOpen ? 'Item-icon' : 'Item-icon-close'}>
         <i className={option.iconClass}></i>
       </div>
