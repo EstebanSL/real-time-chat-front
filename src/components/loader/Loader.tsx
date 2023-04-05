@@ -1,9 +1,18 @@
-import React from 'react'
+import ReactDOM from 'react-dom';
+import styles from './Loader.module.scss'
 
-const Loader = () => {
-  return (
-    <div>Loader</div>
-  )
-}
+const Loader = ({ show }: any) => {
 
-export default Loader
+  if (!show) {
+    return null;
+  }
+
+  return ReactDOM.createPortal(
+    <div className={styles['modal-wrapper']}>
+      Loading
+    </div>,
+    document.body
+  );
+};
+
+export default Loader;

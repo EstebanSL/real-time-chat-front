@@ -10,7 +10,10 @@ export const useAsync = (
   useEffect(() => {
     let isActive = true;
     asyncFn().then((result) => {
-      if (isActive) successFunction(result.data);
+      if (isActive) {
+        console.log(result)
+        successFunction(result.data)
+      };
     });
     return () => {
       returnFunction && returnFunction();

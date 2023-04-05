@@ -7,7 +7,5 @@ export const PublicGuard = () => {
 
   const { user } = useContext(AuthContext);
 
-  console.log('validated')
-
   return user ? <Navigate replace to={PrivateRoutes.DASHBOARD} /> : <Outlet />;
 };

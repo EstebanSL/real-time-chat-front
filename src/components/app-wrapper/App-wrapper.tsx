@@ -6,15 +6,14 @@ import { Sidebar } from '../sidebar/Sidebar';
 import './App-wrapper.scss';
 
 export const AppWrapper = () => {
-
   const { sidebarState } = useContext(SidebarContext);
 
   return (
-    <div className={sidebarState ? 'layout-close' : 'layout-open'}>
-      <>
-        <Sidebar />
+    <>
+      <Sidebar />
+      <div className='layout'>
         <Outlet />
-      </>
-    </div>
+      </div>
+    </>
   );
 };

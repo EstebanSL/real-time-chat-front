@@ -1,5 +1,5 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -7,17 +7,19 @@
   gap: 1rem;
   width: 300px;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--background);
   padding: 1rem .5rem;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
   transition: all ease-out .3s;
-  z-index: 100;
+  z-index: 1000;
+  font-family: 'Nunito Sans', sans-serif;
   filter: drop-shadow(4px 0px 4px #00000072);
 
   &-profile {
     display: flex;
     gap: .5rem;
+    color: var(--text-primary);
     align-items: center;
 
     .profile-logo {
@@ -32,11 +34,13 @@
       text-align: center;
       width: 50px;
       border-radius: 5px;
-      border: 2px solid #2C74B3;
+      border: 2px solid var(--accent);
       cursor: pointer;
+      transition: all ease-out .3s;
 
       &:hover {
-        background-color: #2C74B3;
+        background-color: var(--accent);
+        color: var(--background);
       }
     }
   }
@@ -49,9 +53,43 @@
   }
 
   &-options {
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
+    font-size: 1.5rem;
     gap: .5rem;
+    display: flex;
+    justify-content: space-between;
+    
+
+    .sidebar-icon {
+      cursor: pointer;
+      color: var(--text-primary);
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+
+      span {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 1rem;
+        display: none;
+      }
+
+      &:hover {
+        color: var(--accent);
+
+        span {
+          display: block;
+        }
+      }
+
+      &--error:hover {
+        color: var(--error);
+      }
+
+      &--hidden {
+        display: none;
+      }
+    }
+
   }
 }
 
@@ -81,10 +119,18 @@
   padding: 1rem 1rem;
   box-sizing: border-box;
   font-size: 1rem;
-  border: 2px solid #2C74B3;
+  border: 2px solid var(--accent);
   border-radius: 10px;
   cursor: pointer;
   transition: all ease-out .3s;
+  text-decoration: none;
+  color: var(--text-primary);
+
+  &-active {
+    background-color: var(--accent);
+    color: var(--background);
+    font-weight: 600;
+  }
 
   &-close {
     width: 50px;
@@ -93,7 +139,8 @@
   }
 
   &:hover {
-    background-color: #2C74B3;
+    background-color: var(--accent);
+    color: var(--background);
   }
 
   &-text {

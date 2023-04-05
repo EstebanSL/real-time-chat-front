@@ -5,13 +5,13 @@ export const AuthContext = createContext<any>(null);
 
 const AuthContextProvider = ({ children }: any) => {
 
-  const [user, setUser] = useState<any>(false)
+  const [user, setUser] = useState<any>(JSON.parse(localStorage.getItem('user') || 'null'))
   const { setItem, removeItem } = useLocalStorage()
 
   const login = (userInfo: any) => {
-    console.log(userInfo)
     setUser(userInfo)
-    setItem('user', userInfo.stringify())
+    setItem('user', userInfo.user)
+    setItem('token', userInfo.token)
   }
 
   const logout = () => {

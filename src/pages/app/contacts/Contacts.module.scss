@@ -1,0 +1,49 @@
+.container {
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100vh;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-family: 'Nunito Sans', sans-serif;
+  }
+
+  .button {
+    margin: 0 auto;
+    border-radius: 10px;
+    border: none;
+    padding: .5rem 1rem;
+    box-sizing: border-box;
+    background-color: var(--accent);
+    color: var(--background);
+    font-family: '';
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--accent-active);
+    }
+  
+    i {
+      margin-left: 1rem;
+    }
+  }
+
+  .contactsList {
+    width: 100%;
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+}

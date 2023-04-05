@@ -6,7 +6,7 @@ import React from 'react'
 
 const SidebarContextProvider = ( {children}: any) => {
 
-  const [sidebarState, setsidebarState] = useState(false);
+  const [sidebarState, setsidebarState] = useState(true);
 
   
   const toggleSidebar = () => {
