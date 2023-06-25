@@ -11,7 +11,6 @@ export const useAsync = (
     let isActive = true;
     asyncFn().then((result) => {
       if (isActive) {
-        console.log(result)
         successFunction(result.data)
       };
     });

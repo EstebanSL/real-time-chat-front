@@ -47,6 +47,14 @@ function App() {
                     </ActiveUserContextProvider>
                   }
                 />
+                <Route
+                  path={`${PrivateRoutes.CHAT}/room/:id`}
+                  element={
+                    <ActiveUserContextProvider>
+                      <Chat />
+                    </ActiveUserContextProvider>
+                  }
+                />
                 <Route path={PrivateRoutes.CONTACTS} element={<Contacts />} />
                 <Route path={PrivateRoutes.ROOMS} element={<Rooms />} />
                 <Route path="*" element={<Navigate to="/dashboard" />} />

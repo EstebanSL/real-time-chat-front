@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../../../../context/AuthContext'
 import { sendMessage } from '../../services/messages.service'
 import useFetchAndLoad from '../../../../../hooks/useFetch';
+import { socket } from '../../../../../socket'
 
 export const TextInput = () => {
 
@@ -25,7 +26,9 @@ export const TextInput = () => {
       created: new Date(),
       content: inputValue
     }
-    await callEndpoint(sendMessage(bodyMessage));
+    const { data } = await callEndpoint(sendMessage(bodyMessage));
+  
+    socket.emit('addMessage', data)
     setInputValue('');
   };
 

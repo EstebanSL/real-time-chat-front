@@ -1,26 +1,31 @@
 import { Field, Form, Formik } from 'formik';
 import ReactDOM from 'react-dom';
 import Spinner from '../../../../../components/spinner/Spinner';
-import styles from './AddContactModal.module.scss';
+import styles from './AddRoomModal.module.scss';
 import * as Yup from 'yup';
 import useFetchAndLoad from '../../../../../hooks/useFetch';
-import { addContact } from '../../services/contacts-data.service';
 import { showSuccessToast } from '../../../../../utilities';
 import { socket } from '../../../../../socket';
 import { useContext } from 'react';
 import { AuthContext } from '../../../../../context/AuthContext';
+import { addRoom } from '../../services/rooms-data.service';
 
 const contactSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
+  name: Yup.string().required('Required'),
 });
 
-const AddContactModal = ({ show, onCloseButtonClick }: any) => {
+const AddRoomModal = ({ show, onCloseButtonClick, getContacts }: any) => {
   const { callEndpoint, loading } = useFetchAndLoad();
   const { user } = useContext(AuthContext) 
 
-  const onSubmit = async (data: any) => {
-    const { data: contactData } = await callEndpoint(addContact(data));
-    socket.emit('addContact', {adder: user, added: contactData});
+  const onSubmit = async (data: any) => {    
+    const roomBody = {
+      owner: user._id,
+      users: [user._id],
+      name: data.name
+    }
+    const { data: roomData } = await callEndpoint(addRoom(roomBody));
+    // socket.emit('addContact', {adder: user, added: roomData});
     showSuccessToast('Added successfully')
     onCloseButtonClick();
   };
@@ -32,10 +37,10 @@ const AddContactModal = ({ show, onCloseButtonClick }: any) => {
   return ReactDOM.createPortal(
     <div className={styles['modal-wrapper']}>
       <div className={styles["modal-body"]}>
-        <h2>Add Contact</h2>
+        <h2>Add Room</h2>
         <Formik
           initialValues={{
-            email: '',
+            name: '',
           }}
           validationSchema={contactSchema}
           onSubmit={(values) => {
@@ -50,13 +55,13 @@ const AddContactModal = ({ show, onCloseButtonClick }: any) => {
                 ></i>
                 <Field
                   className={styles.Form__item__input}
-                  name="email"
-                  type="email"
+                  name="name"
+                  type="text"
                   autoComplete="off"
-                  placeholder="email"
+                  placeholder="name"
                 />
-                {errors.email && touched.email && (
-                  <p className={styles.Form__item__error}>{errors.email}</p>
+                {errors.name && touched.name && (
+                  <p className={styles.Form__item__error}>{errors.name}</p>
                 )}
               </div>
               <button className={styles.Form__button} type="submit">
@@ -74,4 +79,4 @@ const AddContactModal = ({ show, onCloseButtonClick }: any) => {
   );
 };
 
-export default AddContactModal;
+export default AddRoomModal;

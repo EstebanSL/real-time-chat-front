@@ -9,7 +9,7 @@ const AuthContextProvider = ({ children }: any) => {
   const { setItem, removeItem } = useLocalStorage()
 
   const login = (userInfo: any) => {
-    setUser(userInfo)
+    setUser(userInfo.user)
     setItem('user', userInfo.user)
     setItem('token', userInfo.token)
   }

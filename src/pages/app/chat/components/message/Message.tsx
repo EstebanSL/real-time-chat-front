@@ -10,8 +10,6 @@ const Message = ({ messageData }: any) => {
 
   const isOwner = messageData.from === user._id
 
-  console.log(user._id, messageData.from)
-
   return (
     <div className={!isOwner ? 'message own' : 'message other'}>
       <div>{messageData.content}</div>

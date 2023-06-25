@@ -7,7 +7,9 @@ const authFetch = axios.create({
 
 authFetch.interceptors.request.use(
   (request) => {
-    request.headers['Authorization'] = 'Bearer ' + JSON.parse(localStorage.getItem('token') || '');
+    if (localStorage.getItem('token')) {
+      request.headers['Authorization'] = 'Bearer ' + JSON.parse(localStorage.getItem('token') || '{}');
+    }
     return request;
   },
   (error) => {
